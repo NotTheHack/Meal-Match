@@ -15,7 +15,7 @@ const Home: NextPage = () => {
         <meta name="description" content="Meal Match. Your cooking-when-you-dont-know-what-to-cook App!" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="min-h-screen p-3 m-4">
+      <main className="min-h-screen p-3 m-4 ">
         <div className="grid grid-cols-2 grid-flow-col gap-5 min-h-screen">
 
           <div className="min-h-screen text-center">
