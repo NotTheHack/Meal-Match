@@ -15,7 +15,7 @@ const RecipeGuide: FC<recipeGuide> = ({ id, setRecModal }) => {
 
   const fetchRecipe = async () => {
     const response = await axios.get<RecipeInstructions>(
-      `https://api.spoonacular.com/recipes/${id}/information?apiKey=cb5d4835d64647959c54dd88be14cec8&includeNutrition=false`
+      `https://api.spoonacular.com/recipes/${id}/information?apiKey=81a283bba00a443eb0d1e4027c9fcfb6&includeNutrition=false`
     );
     const data = response.data;
     setInstructions(data);
@@ -35,7 +35,7 @@ const RecipeGuide: FC<recipeGuide> = ({ id, setRecModal }) => {
       <div className="p-5">
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="font-semibold" key={null}>
+            <h3 className="text-xl font-semibold" key={null}>
               {instructions!.title}
             </h3>
           </div>
@@ -52,7 +52,7 @@ const RecipeGuide: FC<recipeGuide> = ({ id, setRecModal }) => {
         <div className="flex justify-between">
           <div className="relative mr-4 h-[20rem] w-[30rem]">
             <Image
-              className="rounded-3xl shadow-lg"
+              className="rounded-3xl shadow-xl"
               fill
               style={{ objectFit: "contain" }}
               alt={instructions.title}

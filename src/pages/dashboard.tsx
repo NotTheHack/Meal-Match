@@ -40,7 +40,7 @@ const Dashboard: NextPage = () => {
   async function searchRecipe() {
     const query = inputs.toString();
     const response = await axios.get<Recipe[]>(
-      `https://api.spoonacular.com/recipes/findByIngredients?apiKey=cb5d4835d64647959c54dd88be14cec8&ingredients=${query}`
+      `https://api.spoonacular.com/recipes/findByIngredients?apiKey=81a283bba00a443eb0d1e4027c9fcfb6&ingredients=${query}`
     );
     const data = response.data;
     setRecipes(data);
