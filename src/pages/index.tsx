@@ -16,9 +16,9 @@ const Home: NextPage = () => {
       
         
 
-          <div className="min-h-screen text-center flex flex-row">
+          <div className="min-h-screen text-center flex flex-row items-center">
 
-            <div className="min-h-screen text-center bg-green-300 flex">
+            <div className="flex min-h-screen items-center bg-green-300 text-center">
               
               <div className="box-border m-16 h-fit justify-center">
                 <p className="font-sans">
