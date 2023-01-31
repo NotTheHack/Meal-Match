@@ -19,7 +19,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <SessionProvider session={session}>
-      <main className={`${poppins.variable} font-sans min-h-full bg-green-100`}>
+      <main className={`${poppins.variable} font-sans min-h-full bg-[#F0EBCE]`}>
         <Component {...pageProps} />
         </main>
     </SessionProvider>

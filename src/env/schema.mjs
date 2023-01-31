@@ -24,6 +24,7 @@ export const serverSchema = z.object({
   EMAIL_SERVER_USER: z.string(),
   EMAIL_SERVER_PASSWORD:z.string(),
   EMAIL_FROM:z.string(),
+  API_KEY:z.string(),
 });
 
 /**
@@ -33,6 +34,7 @@ export const serverSchema = z.object({
  */
 export const clientSchema = z.object({
   // NEXT_PUBLIC_BAR: z.string(),
+  NEXT_PUBLIC_API_KEY:z.string(),
 });
 
 /**
@@ -43,4 +45,5 @@ export const clientSchema = z.object({
  */
 export const clientEnv = {
   // NEXT_PUBLIC_BAR: process.env.NEXT_PUBLIC_BAR,
+  NEXT_PUBLIC_API_KEY:process.env.NEXT_PUBLIC_API_KEY
 };

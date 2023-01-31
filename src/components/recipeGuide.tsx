@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import type { RecipeInstructions } from "../types/recipeTypes";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
-import Image from "next/image";
+import { env } from "../env/client.mjs";
 
 interface recipeGuide {
   id: string;
@@ -15,7 +15,7 @@ const RecipeGuide: FC<recipeGuide> = ({ id, setRecModal }) => {
 
   const fetchRecipe = async () => {
     const response = await axios.get<RecipeInstructions>(
-      `https://api.spoonacular.com/recipes/${id}/information?apiKey=81a283bba00a443eb0d1e4027c9fcfb6&includeNutrition=false`
+      `https://api.spoonacular.com/recipes/${id}/information?apiKey=${env.NEXT_PUBLIC_API_KEY}&includeNutrition=false`
     );
     const data = response.data;
     setInstructions(data);
@@ -49,23 +49,24 @@ const RecipeGuide: FC<recipeGuide> = ({ id, setRecModal }) => {
             </button>
           </div>
         </div>
-        <div className="flex justify-between">
-          <div className="relative mr-4 h-[20rem] w-[30rem]">
-            <Image
+        <br/>
+        <div className="flex">
+          <div className="relative box-border mr-4 h-[20rem] w-[30rem] basis-1/4">
+            <img
               className="rounded-3xl shadow-xl"
-              fill
               style={{ objectFit: "contain" }}
               alt={instructions.title}
               src={instructions.image}
             />
           </div>
-          <div key={null} className="mr-80 flex w-[50rem] gap-[8rem]">
+          <div key={null} className="basis-3/4 flex gap-12">
             <div
               key={null}
               dangerouslySetInnerHTML={{ __html: instructions!.instructions }}
+              className="basis-1/2"
             />
-            <div className="box-border flex w-[20rem]">
-              <ul className="w-[20rem] list-disc">
+            <div className="box-border w-[20rem] basis-1/2">
+              <ul className="w-80 list-disc">
                 {instructions!.extendedIngredients.map((ingredient, index) => (
                   <li key={index} className="p-1">
                     {ingredient.original}

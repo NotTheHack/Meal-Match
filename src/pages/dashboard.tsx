@@ -1,8 +1,10 @@
 import axios from "axios";
 import type { NextPage } from "next";
+import Head from "next/head";
 import React, { useState } from "react";
 import RecipeGuide from "../components/recipeGuide";
 import type { Recipe } from "../types/recipeTypes";
+import { env } from "../env/client.mjs";
 
 const Dashboard: NextPage = () => {
   const [inputs, setInputs] = useState<string[]>([""]);
@@ -40,13 +42,19 @@ const Dashboard: NextPage = () => {
   async function searchRecipe() {
     const query = inputs.toString();
     const response = await axios.get<Recipe[]>(
-      `https://api.spoonacular.com/recipes/findByIngredients?apiKey=81a283bba00a443eb0d1e4027c9fcfb6&ingredients=${query}`
+      `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${env.NEXT_PUBLIC_API_KEY}&ingredients=${query}`
     );
     const data = response.data;
     setRecipes(data);
   }
 
   return (
+    <>
+    <Head>
+    <title>Meal Match</title>
+    <meta name="description" content="Meal Match. Your cooking-when-you-dont-know-what-to-cook App!" />
+    
+    </Head>
     <div className="min-h-screen bg-[#395144] pt-4">
       <div className="mx-5 rounded-xl border-4 border-[#4E6C50] bg-[#F0EBCE] p-3">
         <div className="grid h-64 grid-flow-col grid-cols-5 grid-rows-6 gap-4 ">
@@ -78,6 +86,7 @@ const Dashboard: NextPage = () => {
         recipe()
       )}
     </div>
+    </>
   );
 
   function recipe() {
@@ -94,15 +103,18 @@ const Dashboard: NextPage = () => {
             <img className="basis-1/4 rounded-3xl p-2" src={recipe.image} />
             <div className="mx-3 my-2 h-8 basis-1/2">
               <div className="font-bold">{recipe.title}</div>
+              <br />
+              
               <p className="font-semibold">Missed Ingredients:</p>
               <br />
               <div>
-                <ol>
+                <ul className="list-disc">
                   {recipe.missedIngredients.map((ingredients, index) => (
                     <li key={index}>{ingredients.name}</li>
                   ))}
-                </ol>{" "}
+                </ul>
               </div>
+
             </div>
           </div>
         ))}
