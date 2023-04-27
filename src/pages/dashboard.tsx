@@ -7,37 +7,12 @@ import type { Recipe } from "../types/recipeTypes";
 import { env } from "../env/client.mjs";
 
 const Dashboard: NextPage = () => {
-  const [inputs, setInputs] = useState<string[]>([""]);
+  const [inputs, setInputs] = useState<string>("");
   const [recipes, setRecipes] = useState<Recipe[] | null>(null);
   const [recModal, setRecModal] = useState<boolean>(false);
   const [recipeId, setRecipeId] = useState<string>("");
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    index: number
-  ) => {
-    const value = e.target.value;
-    const array = [...inputs];
-    array[index] = value;
-    setInputs(array);
-  };
 
-  const handleBlur = (e: React.FocusEvent<HTMLInputElement>, index: number) => {
-    const value = e.currentTarget.value;
-    if (value !== "" && inputs[inputs.length - 1] !== "") {
-      setInputs((prev) => [...prev, ""]);
-    }
-    if (value === "" && inputs[inputs.length - 1] == "") {
-      const array = [...inputs];
-      array.splice(index, 1);
-
-      if (array.length == 0) {
-        array.push("");
-      }
-
-      setInputs(array);
-    }
-  };
 
   async function searchRecipe() {
     const query = inputs.toString();
@@ -48,6 +23,13 @@ const Dashboard: NextPage = () => {
     setRecipes(data);
   }
 
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const value = e.target.value;
+    setInputs(value);
+  };
+
   return (
     <>
     <Head>
@@ -56,28 +38,18 @@ const Dashboard: NextPage = () => {
     
     </Head>
     <div className="min-h-screen bg-[#395144] pt-4">
-      <div className="mx-5 rounded-xl border-4 border-[#4E6C50] bg-[#F0EBCE] p-3">
-        <div className="grid h-64 grid-flow-col grid-cols-5 grid-rows-6 gap-4 ">
-          {inputs.map((value, index) => (
-            <span key={index}>
-              <input
-                key={index}
-                value={value}
-                className="hover-2:border-[#4E6C50] hover:bordeborder-4 rounded-lg border border-solid border-[#AA8B56] bg-transparent py-1 px-1 outline-none"
-                type="text"
-                onBlur={(e) => handleBlur(e, index)}
-                onChange={(e) => handleChange(e, index)}
-              ></input>
-            </span>
-          ))}
-        </div>
+      <div className="flex flex-col rounded-xl border-4 border-[#4E6C50] bg-[#F0EBCE]">
+
+          <input className="border border-black w-[75%] mx-2 my-12 p-1 rounded place-self-center" onChange={handleChange} placeholder="insert the ingredients on your fridge here, separated by comma" ></input>
+
         <button
           type="button"
           onClick={searchRecipe}
-          className="mt-4 rounded-lg border-2 border-[#AA8B56] bg-transparent p-1 hover:bg-[#AA8B56]"
+          className=" m-2 w-36 mt-4 rounded-lg border-2 border-[#AA8B56] bg-transparent p-1 hover:bg-[#AA8B56]"
         >
           Search!
         </button>
+
       </div>
 
       {recModal ? (
@@ -107,10 +79,10 @@ const Dashboard: NextPage = () => {
               
               <p className="font-semibold">Missed Ingredients:</p>
               <br />
-              <div>
-                <ul className="list-disc">
+              <div className="">
+                <ul className="list-disc grid grid-rows-5 grid-cols-4">
                   {recipe.missedIngredients.map((ingredients, index) => (
-                    <li key={index}>{ingredients.name}</li>
+                    <li key={index} className="">{ingredients.name}</li>
                   ))}
                 </ul>
               </div>
